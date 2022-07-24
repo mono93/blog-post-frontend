@@ -1,4 +1,9 @@
+import { useNavigate } from "react-router-dom";
+
 const PageNotFound = () => {
+
+    const navigate = useNavigate();
+
     return (
         <div className="site">
             <div className="sketch">
@@ -7,7 +12,9 @@ const PageNotFound = () => {
             </div>
 
             <h1 className="page404">404:
-                <small>Players Not Found</small></h1>
+                <small>Players Not Found</small> <a className="backToHome" href={void (0)} onClick={() => navigate('/')}> Back to home page </a></h1>
+
+
         </div>
     )
 }
