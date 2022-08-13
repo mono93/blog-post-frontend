@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import './assets/Custom-style.css'
+import './assets/css/Custom-style.css'
 import AppLayout from './layout/AppLayout';
 import PageNotFound from './layout/PageNotFound';
 import { PrivateRoutes } from './routes';

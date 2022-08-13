@@ -431,6 +431,26 @@ span {
     text-decoration: underline !important;
 }
 
+.toggle-password,
+.passwordShow {
+    position: absolute;
+    right: 15px;
+    top: 13px;
+    height: 15px;
+    width: 15px;
+    cursor: pointer;
+    background: url(../images/eye-hide-icon.svg) no-repeat;
+    z-index: 2;
+}
+
+.passwordShow {
+    background: url(../images/eye-show-icon.svg) no-repeat;
+}
+
+.validation-error .inputField {
+    border: 1px solid #EA363F !important;
+}
+
 @keyframes grow {
     0% {
         transform: scale(1) translateY(0px)

@@ -15,7 +15,7 @@ const Landing = () => {
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" height='100px' />
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/640px-Typescript_logo_2020.svg.png" height='100px' />
                     <img src="https://camo.githubusercontent.com/5f54c0817521724a2deae8dedf0c280a589fd0aa9bffd7f19fa6254bb52e996a/68747470733a2f2f6e6573746a732e636f6d2f696d672f6c6f676f2d736d616c6c2e737667" height='100px' />
-                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/10-brands-and-social-media/postgresql.png" height='100px' />
+                    <img src="https://res.cloudinary.com/hevo/images/f_auto,q_auto/v1643793776/hevo-learn/810px-Postgresql_elephant.svg_/810px-Postgresql_elephant.svg_.png?_i=AA" height='100px' />
                     <img src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_0016c93c710cf35990b999cba3a59bae/firebase.png" height='100px' />
                 </div>
                 <div className="joiningSection">
