@@ -49,6 +49,17 @@ const Signup = () => {
                         </div>
                         <div className="col-md-12">
                             <div className="formGroup validation-valid">
+                                <label htmlFor="password">Password</label>
+                                <div className="rel">
+                                    <input type="password" name="password" className="inputField" id="password" />
+                                    <span className=""></span>
+                                    <span className=""></span>
+                                    <span className="requiredDot"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-12">
+                            <div className="formGroup validation-valid">
                                 <label htmlFor="dob">Date of Birth</label>
                                 <div className="rel">
                                     <input type="date" name="dob" className="inputField" id="dob" />

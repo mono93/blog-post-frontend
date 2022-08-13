@@ -261,7 +261,7 @@ span {
 
 .signupMainSide {
     margin: 0 0 0 420px;
-    padding: 160px 24px 24px 120px;
+    padding: 125px 24px 24px 120px;
 }
 
 .breadCrumbWrap {
@@ -307,6 +307,7 @@ span {
 
 .formWrapper input[type=text],
 .formWrapper input[type=date],
+.formWrapper input[type=password],
 .formWrapper select {
     border: 1px solid #c7c7c7;
     border-radius: 4px;
