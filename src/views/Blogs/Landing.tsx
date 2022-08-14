@@ -19,7 +19,7 @@ const Landing = () => {
                     <img src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_0016c93c710cf35990b999cba3a59bae/firebase.png" height='100px' />
                 </div>
                 <div className="joiningSection">
-                    <p > Want to explore? join us <a href={void (0)} onClick={() => navigate('/signup')}>SignUp</a> </p>
+                    <p > Want to explore? join us <a href={void (0)} onClick={() => navigate('/login')}>Login</a> </p>
                 </div>
             </div>
         </div>
