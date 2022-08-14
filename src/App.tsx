@@ -9,6 +9,7 @@ import Login from './views/Auth/Login';
 import Signup from './views/Auth/Signup';
 import Blogs from './views/Blogs/Blogs';
 import Landing from './views/Blogs/Landing';
+import MyProfile from './views/Profile/MyProfile';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <Route path='/' element={<AppLayout><Landing /></AppLayout>} />
       <Route element={<PrivateRoutes />}>
         <Route path='/blogs' element={<Blogs />} />
+        <Route path='/myProfile' element={<MyProfile />} />
       </Route>
       <Route path='/login' element={auth.token ? <Navigate to='/blogs' /> : <Login />} />
       <Route path='/signup' element={auth.token ? <Navigate to='/blogs' /> : <Signup />} />
