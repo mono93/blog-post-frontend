@@ -19,8 +19,8 @@ const AppSideBar = (props: any) => {
     return (
         <div className={`side-bar ${props.sidebarExpand ? 'active' : ''}`}>
             <a href={void (0)} className="close-btn" onClick={() => props.setSidebarExpend(false)}>×</a>
+            {auth.token && <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => navigate('/blogs')}>Blogs</a>}
             <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => handler()}>{auth.token ? 'Logout' : 'Signup'}</a>
-            <a href={void (0)} style={{ cursor: 'pointer' }}>Home</a>
         </div>
     )
 }

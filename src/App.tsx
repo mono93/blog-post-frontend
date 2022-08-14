@@ -16,7 +16,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={auth.token ? <Navigate to='/blogs' /> : <AppLayout><Landing /></AppLayout>} />
+      <Route path='/' element={<AppLayout><Landing /></AppLayout>} />
       <Route element={<PrivateRoutes />}>
         <Route path='/blogs' element={<Blogs />} />
       </Route>
