@@ -264,6 +264,12 @@ span {
     padding: 125px 24px 24px 120px;
 }
 
+.myProfileWrapper {
+    margin: 0px 0 0 230px;
+    padding: 150px 75px 24px 80px;
+    height: 705px;
+}
+
 .breadCrumbWrap {
     color: #ff9d00;
     font-size: 18px;
@@ -280,8 +286,18 @@ span {
     margin-bottom: 40px;
 }
 
+.mainTitle.myProfileTitle {
+    margin-left: 5px;
+    margin-bottom: 40px;
+    text-decoration: underline;
+}
+
 .formWrapper {
     width: 350px;
+}
+
+.formWrapper.myProfileFormWrapper {
+    width: 100%;
 }
 
 .row {
@@ -320,6 +336,22 @@ span {
     width: 100%;
 }
 
+.formWrapper.myProfileFormWrapper input[type=text],
+.formWrapper.myProfileFormWrapper input[type=date],
+.formWrapper.myProfileFormWrapper input[type=password],
+.formWrapper.myProfileFormWrapper select {
+    border: 1px solid #c7c7c7;
+    border-radius: 4px;
+    height: 40px;
+    font-size: 14px;
+    line-height: normal;
+    padding: 5px 12px;
+    color: #1a1a1a;
+    background-color: initial;
+    width: 60%;
+}
+
+
 .forgotPassLink {
     font-size: 12px;
 }
@@ -349,6 +381,11 @@ span {
 .btnFull {
     display: block;
     width: 100%;
+}
+
+.btnFullMyProfile {
+    display: block;
+    width: 32%;
 }
 
 .haveAccount {
@@ -453,6 +490,10 @@ span {
 
 .blogWrapper {
     min-height: 705px;
+}
+
+.btnCenterMyProfile {
+    padding-left: 440px;
 }
 
 @keyframes grow {
