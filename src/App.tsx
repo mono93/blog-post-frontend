@@ -4,18 +4,27 @@ import './assets/css/Custom-style.css'
 import AppLayout from './layout/AppLayout';
 import PageNotFound from './layout/PageNotFound';
 import { PrivateRoutes } from './routes';
+import CustomActionHandler from './views/Auth/CustomActionHandler';
 import ForgotPassword from './views/Auth/ForgotPassword';
-import Login from './views/Auth/Login';
 import Signup from './views/Auth/Signup';
+import Login from './views/Auth/Login';
 import Blogs from './views/Blogs/Blogs';
 import Landing from './views/Blogs/Landing';
 import MyProfile from './views/Profile/MyProfile';
+import { useContext, useReducer } from 'react';
+import { AuthContext, initialState, reducer } from './store/AuthContext';
 
 function App() {
 
+  const [state, dispatch] = useReducer(reducer, initialState);
   let auth = { 'token': JSON.parse(localStorage.getItem('firebase-details') as string)?.idToken }
+  const authCtx = useContext(AuthContext)
+
+  console.log(authCtx)
 
   return (
+    /* need to improve this mechanism */
+    <AuthContext.Provider value={{ state, dispatch }}> 
     <Routes>
       <Route path='/' element={<AppLayout><Landing /></AppLayout>} />
       <Route element={<PrivateRoutes />}>
@@ -25,8 +34,10 @@ function App() {
       <Route path='/login' element={auth.token ? <Navigate to='/blogs' /> : <Login />} />
       <Route path='/signup' element={auth.token ? <Navigate to='/blogs' /> : <Signup />} />
       <Route path='/forgotpassword' element={auth.token ? <Navigate to='/blogs' /> : <ForgotPassword />} />
+      <Route path='/customActionHandler' element={auth.token ? <Navigate to='/blogs' /> : <CustomActionHandler />} />
       <Route path='*' element={<PageNotFound />} />
     </Routes>
+    </AuthContext.Provider>
   );
 }
 

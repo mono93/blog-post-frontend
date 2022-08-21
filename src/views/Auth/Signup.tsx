@@ -1,21 +1,23 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
-import { AuthService } from "../../services";
+import { AuthService, FirebaseService } from "../../services";
 
 const Signup = () => {
 
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: "all" });
+    const { register, handleSubmit, reset, formState: { errors, isDirty, isValid } } = useForm({ mode: "all" });
 
     const [visible, setvisible] = useState(false)
 
     const onSubmit = async (data: any) => {
         try {
-            let payload = { ...data, password: btoa(data.password) }
-            await new AuthService().signup(payload);
-            navigate('/login')
-            alert(`User Signup Succesful, an verfication mail will be sent to ${data.email}`)
+
+            const res = await new FirebaseService().registerWithEmailAndPassword(data.email, data.password)
+            delete data.password
+            await new AuthService().signup({ userId: res.uid, ...data, signupProvider: 'email' });
+            alert(`User Signup Succesful, an verfication mail will be sent to ${data.email}`);
+            reset();
         } catch (err) {
             alert('Something went wrong please try again!!')
         }

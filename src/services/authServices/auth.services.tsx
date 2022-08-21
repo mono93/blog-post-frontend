@@ -9,4 +9,8 @@ export class AuthService {
     public emailVerify = async (email: string) => {
         return axiosServices.post('user/email-verify', { 'user_email': email })
     }
+
+    public isUserAvailable = async (email: string) => {
+        return axiosServices.get('user/is-user-available', { 'params': { email: email } })
+    }
 }

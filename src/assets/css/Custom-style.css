@@ -411,6 +411,12 @@ span {
     font-family: 'Scope One', serif;
 }
 
+.signupMainSide>h3 {
+    margin-top: 25%;
+    margin-left: 10%;
+    font-family: 'Scope One', serif;
+}
+
 .alternateLogin {
     margin-left: 5px;
 }

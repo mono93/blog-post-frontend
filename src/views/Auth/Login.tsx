@@ -12,10 +12,9 @@ const Login = () => {
 
     const onSubmit = async (data: any) => {
         try {
-            const res = await new FirebaseService().logInWithEmailAndPassword(data.email, data.password);
-            localStorage.setItem('firebase-details', JSON.stringify(res._tokenResponse));
+            await new AuthService().isUserAvailable(data.email);
+            await new FirebaseService().logInWithEmailAndPassword(data.email, data.password);
             navigate('/blogs');
-            await new AuthService().emailVerify(data.email);
         } catch (err) {
             alert('Something went wrong please try again!!')
         }

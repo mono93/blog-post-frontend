@@ -1,6 +1,16 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import {
+    getAuth,
+    signOut,
+    checkActionCode,
+    applyActionCode,
+    sendPasswordResetEmail,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+    verifyPasswordResetCode,
+    confirmPasswordReset
+} from "firebase/auth";
 
 const firebaseConfig = {
     authDomain: "fir-auth-6edd8.firebaseapp.com",
@@ -13,10 +23,44 @@ const firebaseConfig = {
 
 const app = initializeApp({ ...firebaseConfig, apiKey: process.env.REACT_APP_FIREBASE_API_KEY });
 const auth = getAuth(app);
-const db = getFirestore(app);
 
 export class FirebaseService {
-    public logInWithEmailAndPassword = async (email: string, password: string): Promise<any> => {
+
+    public handleVerifyEmail = async (actionCode: string) => {
+        try {
+
+            await checkActionCode(auth, actionCode);
+            await applyActionCode(auth, actionCode);
+            return auth.currentUser!.email
+
+        } catch (err: any) {
+            throw new Error(err);
+        }
+    };
+
+    public handlePasswordChange = async (actionCode: string, password: string) => {
+        try {
+
+            await verifyPasswordResetCode(auth, actionCode);
+            await confirmPasswordReset(auth, actionCode, password);
+            return true
+
+        } catch (err: any) {
+            throw new Error(err);
+        }
+    };
+
+    public registerWithEmailAndPassword = async (email: string, password: string) => {
+        try {
+            const res = await createUserWithEmailAndPassword(auth, email, password);
+            await sendEmailVerification(res.user)
+            return res.user;
+        } catch (err) {
+            throw new Error("User Already Exist");
+        }
+    };
+
+    public logInWithEmailAndPassword = async (email: string, password: string) => {
         try {
             return await signInWithEmailAndPassword(auth, email, password);
         } catch (err: any) {
@@ -24,16 +68,14 @@ export class FirebaseService {
         }
     };
 
-    public logout = () => {
-        signOut(auth);
-    };
+    public logout = () => signOut(auth);
+
 
     public sendPasswordReset = async (email: string) => {
         try {
             await sendPasswordResetEmail(auth, email);
             return true
         } catch (err: any) {
-            console.error(err);
             throw new Error(err);
         }
     };
