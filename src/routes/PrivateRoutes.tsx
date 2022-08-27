@@ -1,10 +1,13 @@
+import { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import AppLayout from '../layout/AppLayout';
+import { AuthContext } from '../store/AuthContext';
 
 const PrivateRoutes = () => {
-    let auth = { 'token': JSON.parse(localStorage.getItem('firebase-details') as string)?.idToken }
+    const authCtx = useContext(AuthContext);
+    
     return (
-        auth.token ? <AppLayout> <Outlet /> </AppLayout> : <Navigate to='/login' />
+        authCtx?.state.idToken ? <AppLayout> <Outlet /> </AppLayout> : <Navigate to='/login' />
     )
 }
 

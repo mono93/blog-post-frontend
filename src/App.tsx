@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import './assets/css/Custom-style.css'
@@ -11,33 +12,25 @@ import Login from './views/Auth/Login';
 import Blogs from './views/Blogs/Blogs';
 import Landing from './views/Blogs/Landing';
 import MyProfile from './views/Profile/MyProfile';
-import { useContext, useReducer } from 'react';
-import { AuthContext, initialState, reducer } from './store/AuthContext';
+import { AuthContext } from './store/AuthContext';
 
 function App() {
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-  let auth = { 'token': JSON.parse(localStorage.getItem('firebase-details') as string)?.idToken }
-  const authCtx = useContext(AuthContext)
-
-  console.log(authCtx)
+  const authCtx = useContext(AuthContext);
 
   return (
-    /* need to improve this mechanism */
-    <AuthContext.Provider value={{ state, dispatch }}> 
     <Routes>
       <Route path='/' element={<AppLayout><Landing /></AppLayout>} />
       <Route element={<PrivateRoutes />}>
         <Route path='/blogs' element={<Blogs />} />
         <Route path='/myProfile' element={<MyProfile />} />
       </Route>
-      <Route path='/login' element={auth.token ? <Navigate to='/blogs' /> : <Login />} />
-      <Route path='/signup' element={auth.token ? <Navigate to='/blogs' /> : <Signup />} />
-      <Route path='/forgotpassword' element={auth.token ? <Navigate to='/blogs' /> : <ForgotPassword />} />
-      <Route path='/customActionHandler' element={auth.token ? <Navigate to='/blogs' /> : <CustomActionHandler />} />
+      <Route path='/login' element={authCtx?.state.idToken ? <Navigate to='/blogs' /> : <Login />} />
+      <Route path='/signup' element={authCtx?.state.idToken ? <Navigate to='/blogs' /> : <Signup />} />
+      <Route path='/forgotpassword' element={authCtx?.state.idToken ? <Navigate to='/blogs' /> : <ForgotPassword />} />
+      <Route path='/customActionHandler' element={authCtx?.state?.idToken ? <Navigate to='/blogs' /> : <CustomActionHandler />} />
       <Route path='*' element={<PageNotFound />} />
     </Routes>
-    </AuthContext.Provider>
   );
 }
 

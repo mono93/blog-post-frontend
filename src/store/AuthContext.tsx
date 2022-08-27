@@ -1,27 +1,59 @@
-import { createContext } from "react";
+import { createContext, useReducer } from 'react';
+import { IFirebaseLoginResponse } from '../models';
+import * as ActionTypes from './actions/actionTypes';
 
-const initialState = {
-    token: null
-};
+const firebaseLoginResponse: IFirebaseLoginResponse = {
+    displayName: "",
+    email: "",
+    expiresIn: "",
+    idToken: "",
+    kind: "",
+    localId: "",
+    refreshToken: "",
+    registered: false,
+}
 
-const reducer = (state: any, action: any) => {
-    switch (action.type) {
-        case "LOGIN":
+
+const AuthReducer = (state: any, action: any) => {
+    const { type, value } = action;
+
+    switch (type) {
+        case ActionTypes.LOGIN:
             return {
-                ...state,
-                token: action.payload
+                ...value,
             };
-        case "LOGOUT":
-            localStorage.clear();
+        case ActionTypes.LOGOUT:
             return {
-                ...state,
-                token: action.payload
+                displayName: "",
+                email: "",
+                expiresIn: "",
+                idToken: "",
+                kind: "",
+                localId: "",
+                refreshToken: "",
+                registered: false,
             };
         default:
             return state;
     }
 };
 
+interface IAuthContextType {
+    state: IFirebaseLoginResponse;
+    dispatch: React.Dispatch<{ type: string; value: unknown }>;
+}
 
-export const AuthContext = createContext({});
-export { reducer, initialState }
+
+const AuthContext = createContext<IAuthContextType | null>(null);
+
+function AuthProvider(props: any) {
+    const [state, dispatch] = useReducer(AuthReducer, firebaseLoginResponse);
+
+    return (
+        <AuthContext.Provider value={{ state, dispatch }}>
+            {props.children}
+        </AuthContext.Provider>
+    );
+}
+
+export { AuthContext, AuthProvider };

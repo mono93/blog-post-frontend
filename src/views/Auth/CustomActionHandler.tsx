@@ -67,14 +67,6 @@ const CustomActionHandler = () => {
             </div>
             <div className="signupMainSide">
                 {(customActionHandler.mode === 'verifyEmail' && customActionHandler.action === 'loading') && <h3>Loading....</h3>}
-                {(customActionHandler.mode === 'verifyEmail' && customActionHandler.action === 'success') && (
-                    <Fragment>
-                        <h3> Email verfication Succesful </h3>
-                        <div className="smlText haveAccount">
-                            <a href={void (0)} onClick={() => navigate('/login')}>Login</a>
-                        </div>
-                    </Fragment>
-                )}
                 {(customActionHandler.mode === 'resetPassword' && customActionHandler.action === 'loading') &&
                     (
                         <Fragment>
@@ -111,6 +103,14 @@ const CustomActionHandler = () => {
                         </Fragment>
                     )
                 }
+                {((customActionHandler.mode === 'verifyEmail' || customActionHandler.mode === 'resetPassword') && customActionHandler.action === 'success') && (
+                    <Fragment>
+                        <h3> {(customActionHandler.mode === 'verifyEmail') ? 'Email verfication Succesful' : 'Password rest Succesful'} </h3>
+                        <div className="smlText haveAccount">
+                            <a href={void (0)} onClick={() => navigate('/login')}>Login</a>
+                        </div>
+                    </Fragment>
+                )}
                 {((customActionHandler.mode === 'verifyEmail' || customActionHandler.mode === 'resetPassword') && customActionHandler.action === 'fail') && <h3>Oops Something went wrong, Please try again</h3>}
             </div>
         </div>
