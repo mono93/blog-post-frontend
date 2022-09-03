@@ -1,6 +1,6 @@
 export interface ISignupReqest {
     usedId          : string;
-    firstName       :  string;
+    firstName       : string;
     lastName        : string;
     email           : string;
     dateOfBirth     : string;

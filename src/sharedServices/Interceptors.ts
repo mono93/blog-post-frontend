@@ -18,20 +18,15 @@ const onRequest = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig
     headers: {
       ...config.headers,
       ...{
-        Authorization: `Bearer ${await getAccessToken()}`,
+        Authorization: `Bearer ${getAccessToken()}`,
       },
     },
   };
   return config;
 };
 
-const getAccessToken = async () => {
-  const audience: any = process.env.REACT_APP_AUTH0_AUDIENCE?.toString();
-  // if (auth0Security.getAccessTokenSilently !== null)
-  //   return auth0Security.getAccessTokenSilently()({
-  //     audience: audience
-  //   });
-  return "";
+const getAccessToken = () => {
+  return JSON.parse(localStorage.getItem('the-blog-post-auth-data') as string)?.idToken || "";
 }
 
 const onRequestError = (error: AxiosError): Promise<AxiosError> => {

@@ -1,10 +1,26 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { IProfileResponse } from "../../models/profile/profile.interface";
+import { ProfileService } from "../../services";
 
 const MyProfile = () => {
 
-    const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: "all" });
+    const { register, handleSubmit, setValue, formState: { errors, isDirty, isValid } } = useForm({ mode: "all" });
+    const [profileData, setProfileData] = useState<IProfileResponse>({})
+
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    useEffect(() => {
+        if (Object.keys(profileData).length > 0) {
+            setValue('firstName', profileData?.user_first_name, { shouldDirty: false });
+            setValue('middleName', profileData?.user_middle_name, { shouldDirty: false });
+            setValue('lastName', profileData?.user_last_name, { shouldDirty: false });
+            setValue('gender', profileData?.gender === "M" ? "Male" : profileData?.gender === "F" ? "Female" : "Others", { shouldDirty: false });
+            setValue('dateOfBirth', profileData?.dob, { shouldDirty: false });
+        }
+    }, [profileData])
 
     const onSubmit = async (data: any) => {
         try {
@@ -14,11 +30,25 @@ const MyProfile = () => {
         }
     }
 
+    const fetchData = async () => {
+        try {
+            const res = await new ProfileService().getProfileDetails();
+            setProfileData(res.data.data[0]);
+        } catch (err) {
+            alert('Something went wrong please try again!!')
+        }
+    }
+
     return (
         <div className="myProfileWrapper">
-            <div className="mainTitle myProfileTitle">My Profile</div>
+            <div className="mainTitle myProfileTitle" style={{ textAlign: 'center' }}>My Profile</div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="formWrapper myProfileFormWrapper">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <input type="file" name="" id="" />
+                        </div>
+                    </div>
                     <div className="row">
                         <div className="col-md-4">
                             <div className={errors?.firstName ? 'formGroup validation-error' : 'formGroup validation-valid'}>
@@ -94,7 +124,7 @@ const MyProfile = () => {
                     </div>
                 </div>
             </form>
-        </div>
+        </div >
     )
 }
 

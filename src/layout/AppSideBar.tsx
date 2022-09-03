@@ -13,6 +13,7 @@ const AppSideBar = (props: any) => {
         if (authCtx?.state.idToken) {
             new FirebaseService().logout();
             authCtx.dispatch({ type: ActionTypes.LOGOUT, value: {} })
+            localStorage.removeItem('the-blog-post-auth-data')
             navigate('/')
         } else {
             navigate('/signup')
@@ -24,7 +25,7 @@ const AppSideBar = (props: any) => {
             <a href={void (0)} className="close-btn" style={{ cursor: 'pointer' }} onClick={() => props.setSidebarExpend(false)}>×</a>
             {authCtx?.state.idToken && <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => navigate('/blogs')}>Blogs</a>}
             <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => handler()}>{authCtx?.state.idToken ? 'Logout' : 'Signup'}</a>
-            <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => navigate('/myProfile')}>My Profile</a>
+            {authCtx?.state.idToken && <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => navigate('/myProfile')}>My Profile</a>}
         </div>
     )
 }

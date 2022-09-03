@@ -40,7 +40,7 @@ const AuthReducer = (state: any, action: any) => {
 
 interface IAuthContextType {
     state: IFirebaseLoginResponse;
-    dispatch: React.Dispatch<{ type: string; value: unknown }>;
+    dispatch: React.Dispatch<{ type: string; value: any }>;
 }
 
 

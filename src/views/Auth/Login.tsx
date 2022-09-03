@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { AuthService, FirebaseService } from "../../services";
+import { AuthContext } from "../../store/AuthContext";
+import * as ActionTypes from '../../store/actions/actionTypes';
 
 const Login = () => {
 
     const navigate = useNavigate();
+    const authCtx = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: "all" });
 
     const [visible, setvisible] = useState(false);
@@ -13,7 +16,9 @@ const Login = () => {
     const onSubmit = async (data: any) => {
         try {
             await new AuthService().isUserAvailable(data.email);
-            await new FirebaseService().logInWithEmailAndPassword(data.email, data.password);
+            const res: any = await new FirebaseService().logInWithEmailAndPassword(data.email, data.password);
+            authCtx?.dispatch({ type: ActionTypes.LOGIN, value: res._tokenResponse })
+            localStorage.setItem('the-blog-post-auth-data', JSON.stringify(res._tokenResponse))
             navigate('/blogs');
         } catch (err) {
             alert('Something went wrong please try again!!')
