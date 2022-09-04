@@ -6,11 +6,11 @@ import * as ActionTypes from '../store/actions/actionTypes';
 
 const AppSideBar = (props: any) => {
 
-    const authCtx = useContext(AuthContext);
+    const authCtx = JSON.parse(localStorage.getItem('the-blog-post-auth-data') as string); /*useContext(AuthContext);*/
     const navigate = useNavigate()
 
     const handler = () => {
-        if (authCtx?.state.idToken) {
+        if (authCtx?.idToken) {
             new FirebaseService().logout();
             authCtx.dispatch({ type: ActionTypes.LOGOUT, value: {} })
             localStorage.removeItem('the-blog-post-auth-data')
@@ -23,9 +23,9 @@ const AppSideBar = (props: any) => {
     return (
         <div className={`side-bar ${props.sidebarExpand ? 'active' : ''}`}>
             <a href={void (0)} className="close-btn" style={{ cursor: 'pointer' }} onClick={() => props.setSidebarExpend(false)}>×</a>
-            {authCtx?.state.idToken && <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => navigate('/blogs')}>Blogs</a>}
-            <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => handler()}>{authCtx?.state.idToken ? 'Logout' : 'Signup'}</a>
-            {authCtx?.state.idToken && <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => navigate('/myProfile')}>My Profile</a>}
+            {authCtx?.idToken && <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => navigate('/blogs')}>Blogs</a>}
+            <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => handler()}>{authCtx?.idToken ? 'Logout' : 'Signup'}</a>
+            {authCtx?.idToken && <a href={void (0)} style={{ cursor: 'pointer' }} onClick={() => navigate('/myProfile')}>My Profile</a>}
         </div>
     )
 }

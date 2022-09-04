@@ -266,7 +266,7 @@ span {
 
 .myProfileWrapper {
     margin: 0px 0 0 230px;
-    padding: 150px 75px 24px 80px;
+    padding: 85px 75px 24px 80px;
     height: 705px;
 }
 
@@ -500,6 +500,25 @@ span {
 
 .btnCenterMyProfile {
     padding-left: 440px;
+}
+
+.profileImg {
+    border-radius: 100%;
+    width: 200px;
+    height: 200px;
+    margin-left: 510px;
+    background: #F8F0E3;
+}
+
+.profileImg input[type=file] {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    top: 140px;
+    left: 680px;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 100%;
 }
 
 @keyframes grow {

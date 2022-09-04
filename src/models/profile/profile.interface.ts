@@ -9,3 +9,12 @@ export interface IProfileResponse {
     user_last_name      ?: string
     user_middle_name    ?: string
 }
+
+
+export interface IProfileDetails {
+    firstName            : string
+    middleName           : string
+    lastName             : string
+    gender               : string
+    dateOfBirth          : string
+}

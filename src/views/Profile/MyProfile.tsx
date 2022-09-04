@@ -5,7 +5,7 @@ import { ProfileService } from "../../services";
 
 const MyProfile = () => {
 
-    const { register, handleSubmit, setValue, formState: { errors, isDirty, isValid } } = useForm({ mode: "all" });
+    const { register, handleSubmit, setValue, reset, formState: { errors, isDirty, isValid } } = useForm({ mode: "all" });
     const [profileData, setProfileData] = useState<IProfileResponse>({})
 
     useEffect(() => {
@@ -24,7 +24,9 @@ const MyProfile = () => {
 
     const onSubmit = async (data: any) => {
         try {
-            console.log(data)
+            await new ProfileService().setProfileDetails(data);
+            reset()
+            fetchData()
         } catch (err) {
             alert('Something went wrong please try again!!')
         }
@@ -41,12 +43,16 @@ const MyProfile = () => {
 
     return (
         <div className="myProfileWrapper">
-            <div className="mainTitle myProfileTitle" style={{ textAlign: 'center' }}>My Profile</div>
+            <div className="mainTitle myProfileTitle">My Profile</div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="formWrapper myProfileFormWrapper">
                     <div className="row">
                         <div className="col-md-12">
-                            <input type="file" name="" id="" />
+                            <div className='formGroup validation-valid'>
+                                <div className="profileImg">
+                                    <input type="file" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="row">
@@ -67,7 +73,9 @@ const MyProfile = () => {
                             <div className={errors?.middleName ? 'formGroup validation-error' : 'formGroup validation-valid'}>
                                 <label htmlFor="middleName">Middle Name</label>
                                 <div className="rel">
-                                    <input type="text" className="inputField" id="middleName" {...register("middleName")} />
+                                    <input type="text" className="inputField" id="middleName" {...register("middleName",
+                                        { required: false }
+                                    )} />
                                     <span className={errors?.middleName ? 'error' : ''}></span>
                                     <span className=""></span>
                                     <span className="requiredDot"></span>
@@ -118,7 +126,7 @@ const MyProfile = () => {
                     <div className="row">
                         <div className="col-md-12">
                             <div className="formGroup btnTopSpace btnCenterMyProfile">
-                                <button type="submit" className="btn btn-warning btnFullMyProfile" disabled={!isDirty || !isValid} >Submit</button>
+                                <button type="submit" className="btn btn-warning btnFullMyProfile" disabled={!isDirty} >Submit</button>
                             </div>
                         </div>
                     </div>

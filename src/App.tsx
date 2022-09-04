@@ -16,7 +16,7 @@ import { AuthContext } from './store/AuthContext';
 
 function App() {
 
-  const authCtx = useContext(AuthContext);
+  const authCtx = JSON.parse(localStorage.getItem('the-blog-post-auth-data') as string); /*useContext(AuthContext);*/
 
   return (
     <Routes>
@@ -25,10 +25,10 @@ function App() {
         <Route path='/blogs' element={<Blogs />} />
         <Route path='/myProfile' element={<MyProfile />} />
       </Route>
-      <Route path='/login' element={authCtx?.state.idToken ? <Navigate to='/blogs' /> : <Login />} />
-      <Route path='/signup' element={authCtx?.state.idToken ? <Navigate to='/blogs' /> : <Signup />} />
-      <Route path='/forgotpassword' element={authCtx?.state.idToken ? <Navigate to='/blogs' /> : <ForgotPassword />} />
-      <Route path='/customActionHandler' element={authCtx?.state?.idToken ? <Navigate to='/blogs' /> : <CustomActionHandler />} />
+      <Route path='/login' element={authCtx?.idToken ? <Navigate to='/blogs' /> : <Login />} />
+      <Route path='/signup' element={authCtx?.idToken ? <Navigate to='/blogs' /> : <Signup />} />
+      <Route path='/forgotpassword' element={authCtx?.idToken ? <Navigate to='/blogs' /> : <ForgotPassword />} />
+      <Route path='/customActionHandler' element={authCtx?.idToken ? <Navigate to='/blogs' /> : <CustomActionHandler />} />
       <Route path='*' element={<PageNotFound />} />
     </Routes>
   );

@@ -4,10 +4,10 @@ import AppLayout from '../layout/AppLayout';
 import { AuthContext } from '../store/AuthContext';
 
 const PrivateRoutes = () => {
-    const authCtx = useContext(AuthContext);
+    const authCtx = JSON.parse(localStorage.getItem('the-blog-post-auth-data') as string); /*useContext(AuthContext);*/
     
     return (
-        authCtx?.state.idToken ? <AppLayout> <Outlet /> </AppLayout> : <Navigate to='/login' />
+        authCtx?.idToken ? <AppLayout> <Outlet /> </AppLayout> : <Navigate to='/login' />
     )
 }
 
