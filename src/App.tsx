@@ -9,7 +9,7 @@ import CustomActionHandler from './views/Auth/CustomActionHandler';
 import ForgotPassword from './views/Auth/ForgotPassword';
 import Signup from './views/Auth/Signup';
 import Login from './views/Auth/Login';
-import Blogs from './views/Blogs/Blogs';
+// import Blogs from './views/Blogs/Blogs';
 import Landing from './views/Blogs/Landing';
 import MyProfile from './views/Profile/MyProfile';
 import { AuthContext } from './store/AuthContext';
@@ -22,7 +22,7 @@ function App() {
     <Routes>
       <Route path='/' element={<AppLayout><Landing /></AppLayout>} />
       <Route element={<PrivateRoutes />}>
-        <Route path='/blogs' element={<Blogs />} />
+        {/* <Route path='/blogs' element={<Blogs />} /> */}
         <Route path='/myProfile' element={<MyProfile />} />
       </Route>
       <Route path='/login' element={authCtx?.idToken ? <Navigate to='/blogs' /> : <Login />} />
