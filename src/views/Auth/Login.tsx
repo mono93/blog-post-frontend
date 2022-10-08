@@ -19,7 +19,7 @@ const Login = () => {
             const res: any = await new FirebaseService().logInWithEmailAndPassword(data.email, data.password);
             authCtx?.dispatch({ type: ActionTypes.LOGIN, value: res._tokenResponse })
             localStorage.setItem('the-blog-post-auth-data', JSON.stringify(res._tokenResponse))
-            navigate('/blogs');
+            navigate('/myProfile');
         } catch (err) {
             alert('Something went wrong please try again!!')
         }
