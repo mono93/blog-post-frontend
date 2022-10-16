@@ -8,7 +8,7 @@ import * as ActionTypes from '../../store/actions/actionTypes';
 const Login = () => {
 
     const navigate = useNavigate();
-    const authCtx = useContext(AuthContext);
+    // const authCtx = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({ mode: "all" });
 
     const [visible, setvisible] = useState(false);
@@ -17,7 +17,7 @@ const Login = () => {
         try {
             await new AuthService().isUserAvailable(data.email);
             const res: any = await new FirebaseService().logInWithEmailAndPassword(data.email, data.password);
-            authCtx?.dispatch({ type: ActionTypes.LOGIN, value: res._tokenResponse })
+            // authCtx?.dispatch({ type: ActionTypes.LOGIN, value: res._tokenResponse })
             localStorage.setItem('the-blog-post-auth-data', JSON.stringify(res._tokenResponse))
             navigate('/myProfile');
         } catch (err) {
