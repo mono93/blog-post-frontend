@@ -12,7 +12,7 @@ const AppSideBar = (props: any) => {
     const handler = () => {
         if (authCtx?.idToken) {
             new FirebaseService().logout();
-            authCtx.dispatch({ type: ActionTypes.LOGOUT, value: {} })
+            // authCtx.dispatch({ type: ActionTypes.LOGOUT, value: {} })
             localStorage.removeItem('the-blog-post-auth-data')
             navigate('/')
         } else {
